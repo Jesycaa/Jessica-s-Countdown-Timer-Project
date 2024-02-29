@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>IPhone Giveaway Countdown</title>
+</head>
+<body>
+    <h1 class="wobble">IPhone Giveaway &hearts; &hearts; &hearts;</h1>
+    <p style="font-size: x-large;">Calling all giveaway lovers! This one’s for you so get excited because our latest IPhone giveaway is happening here in 10 days time so don't miss out because it’s bigger and better than ever! </p>
+    <div style="font-size:large;" id="countdown"></div>
+    <img src="iphone2peg.webp" alt="">
+    <script>
+        const deadline = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000); // 10 days from today
+
+        function getTimeRemaining(endtime) {
+            const total = Date.parse(endtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+            return { total, days, hours, minutes, seconds };
+        }
+
+        function initializeClock(id, endtime) {
+            const clock = document.getElementById(id);
+            const timeinterval = setInterval(() => {
+                const t = getTimeRemaining(endtime);
+
+                clock.innerHTML = `
+                    <span>${t.days} days</span>
+                    <span>${t.hours} hours</span>
+                    <span>${t.minutes} minutes</span>
+                    <span>${t.seconds} seconds</span>
+                `;
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                }
+            }, 1000);
+        }
+
+        initializeClock('countdown', deadline);
+    </script>
+</body>
+</html>
